@@ -115,21 +115,14 @@ def get_all_child_with_concrete_type_by_parent_id(*, parent_id: int, type_: int)
     return res
 
 
-def get_staff_by_office_id(office_id: int):
-    """Возвращает список персонала для офиса office_id"""
+def get_staff_secname_by_office_id(office_id: int):
+    """Возвращает фамилии персонала для офиса office_id"""
     assert isinstance(office_id, int), "office_id must be integer"
 
     if is_it_office_id(office_id):
         return [
-            x[0]
-            for x in get_all_child_with_concrete_type_by_parent_id(
+            staff[0]
+            for staff in get_all_child_with_concrete_type_by_parent_id(
                 parent_id=office_id, type_=EnRowType.staff.value
             )
         ]
-
-
-if __name__ == "__main__":
-    office_id = get_office_id_by_staff(staff_id=3)
-    r = get_staff_by_office_id(office_id=office_id)
-
-    print(r)
